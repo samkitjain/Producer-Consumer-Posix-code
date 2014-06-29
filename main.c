@@ -1,6 +1,4 @@
 /* Name: Samkit Jain
-   Student ID: 4634193
-   CSE-Lab Login: jainx224
 */
 
 #include <pthread.h>
