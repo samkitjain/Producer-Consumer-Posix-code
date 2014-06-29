@@ -50,10 +50,10 @@ void *consumerfn(void *arg){
 								bluehead = 	myparam->conptr->blueconhead ;				   // Point to element to be consumed from buffer2
 								/* Consume item at head of buffer2 and write it to Consumer.txt */
 								if(write(myparam->fd , myparam->conptr->buffer2[bluehead] , strlen(myparam->conptr->buffer2[bluehead])) != strlen(myparam->conptr->buffer2[bluehead]))
-										perror("CONSUMER: Error in writting :\n");
+										perror("CONSUMER: Error in writing :\n");
 								/* Force curson to write to next line in Consumer.txt */
 								if(write(myparam->fd ,"\n", 1) != 1)
-										perror("CONSUMER: Error in writting :\n");			
+										perror("CONSUMER: Error in writing :\n");			
 								myparam->conptr->blueconhead = (bluehead + 1) % BUFSIZE ; // Increment header to point to next element to be consumed
 								myparam->conptr->count2 = myparam->conptr->count2 + 1 ;	  // Increment count2 to show availabilty of one space in buffer2
 								pthread_cond_signal(&(myparam->conptr-> SpaceAvailable2));   // Signal SpaceAvailable2
@@ -68,10 +68,10 @@ void *consumerfn(void *arg){
 						redhead = myparam->conptr->redconhead ;									// Point to element to be consumed from buffer1
 						/* Consume the item at head of buffer1 and write it to Consumer.txt */
 						if(write(myparam->fd , myparam->conptr->buffer1[redhead] , strlen(myparam->conptr->buffer1[redhead])) != strlen(myparam->conptr->buffer1[redhead]))
-								perror("CONSUMER: Error in writting :\n");
+								perror("CONSUMER: Error in writing :\n");
 						/* Force curson to write to next line in Consumer.txt */
 						if(write(myparam->fd ,"\n", 1) != 1)
-								perror("CONSUMER: Error in writting :\n");			
+								perror("CONSUMER: Error in writing :\n");			
 						myparam->conptr->redconhead =  (redhead + 1) % BUFSIZE ;	// Increment header to point to next element to be consumed
 						myparam->conptr->count1 = myparam->conptr->count1 + 1 ;		// Increment count1 to show availabilty of one space in buffer1
 						pthread_cond_signal(&(myparam->conptr-> SpaceAvailable1));  // Signal SpaceAvailable1
@@ -123,9 +123,9 @@ void *producerfn(void *arg){
 							strncpy(myparam->prodptr->buffer2[bluehead] , item , strlen(item));
 							/* Write item in RED_producer.txt */
 							if(errno = write(myparam->fd , myparam->prodptr->buffer2[bluehead] , strlen(myparam->prodptr->buffer2[bluehead]))!=strlen(myparam->prodptr->buffer2[bluehead]))
-									perror("REDPRODUCER: Error in writting data  in buffer2\n");
+									perror("REDPRODUCER: Error in writing data  in buffer2\n");
 							if(write(myparam->fd ,"\n", 1) != 1)
-									perror("REDPRODUCER: Error in writting nextline operator\n");
+									perror("REDPRODUCER: Error in writing nextline operator\n");
 
 							myparam->prodptr->count2 = myparam->prodptr->count2 - 1;						// Decrement count2 to indiacte one less space available in buffer2
 							myparam->prodptr->blueprodhead = (bluehead + 1) % BUFSIZE ; 					// Increment header to point to next buffer2 space where item will be produced
@@ -150,9 +150,9 @@ void *producerfn(void *arg){
 						strncpy(myparam->prodptr->buffer1[redhead] , item , strlen(item));
 						/* Write item in RED_producer.txt */
 						if(errno = write(myparam->fd , myparam->prodptr->buffer1[redhead] , strlen(myparam->prodptr->buffer1[redhead]))!=strlen(myparam->prodptr->buffer1[redhead]))
-								perror("REDPRODUCER: Error in writting data in buffer1\n");
+								perror("REDPRODUCER: Error in writing data in buffer1\n");
 						if(write(myparam->fd ,"\n", 1) != 1)
-								perror("REDPRODUCER: Error in writting nextline operator\n");
+								perror("REDPRODUCER: Error in writing nextline operator\n");
 
 						myparam->prodptr->count1 = myparam->prodptr->count1 - 1;							// Decrement count1 to indiacte one less space available in buffer1
 						myparam->prodptr->redprodhead = (redhead + 1) % BUFSIZE;							// Increment header to point to next buffer1 space where item will be produced
@@ -198,9 +198,9 @@ void *producerfn(void *arg){
 						strncpy(myparam->prodptr->buffer1[redhead] , item , strlen(item));
 						/* Write item in BLUE_producer.txt */
 						if(  errno = write(myparam->fd , myparam->prodptr->buffer1[redhead] , strlen(myparam->prodptr->buffer1[redhead]))!=strlen(myparam->prodptr->buffer1[redhead]))
-							perror("BLUEPRODUCER: Error in writting data in buffer1\n");
+							perror("BLUEPRODUCER: Error in writing data in buffer1\n");
 						if(write(myparam->fd ,"\n", 1) != 1)
-							perror("BLUEPRODUCER: Error in writting nextline operator\n");
+							perror("BLUEPRODUCER: Error in writing nextline operator\n");
 
 						myparam->prodptr->count1 = myparam->prodptr->count1 - 1;						// Decrement count1 to indiacte one less space available in buffer1
 						myparam->prodptr->redprodhead = (redhead + 1) % BUFSIZE ;						// Increment header to point to next buffer1 space where item will be produced
@@ -226,9 +226,9 @@ void *producerfn(void *arg){
 					strncpy(myparam->prodptr->buffer2[bluehead] , item , strlen(item));
 					/* Write item in BLUE_producer.txt */
 					if(errno = write(myparam->fd , myparam->prodptr->buffer2[bluehead] , strlen(myparam->prodptr->buffer2[bluehead]))!=strlen(myparam->prodptr->buffer2[bluehead]))
-						perror("BLUEPRODUCER: Error in writting data  in buffer2\n");
+						perror("BLUEPRODUCER: Error in writing data  in buffer2\n");
 					if(write(myparam->fd ,"\n", 1) != 1)
-						perror("BLUEPRODUCER: Error in writting nextline operator\n");
+						perror("BLUEPRODUCER: Error in writing nextline operator\n");
 					
 					myparam->prodptr->count2 = myparam->prodptr->count2 - 1;							// Decrement count2 to indiacte one less space available in buffer2
 					myparam->prodptr->blueprodhead = (bluehead + 1) % BUFSIZE ;							// Increment header to point to next buffer1 space where item will be produced
