@@ -42,7 +42,7 @@ void *consumerfn(void *arg){
 							pthread_mutex_unlock(&(myparam->conptr-> mutex2));  // Release mutex1
 							/* Since both buffers are full consumer waits on ItemAvailable condition variable till producer produces item */ 
 							while(pthread_cond_wait (&(myparam->conptr->ItemAvailable),&(myparam->conptr-> mutex1))!=0);
-							pthread_mutex_unlock(&(myparam->conptr-> mutex2));  // Release mutex1
+							pthread_mutex_unlock(&(myparam->conptr-> mutex1));  // Release mutex1
 						}
 							else{
 								/*Consume product from buffer2 since buffer1 is full */
